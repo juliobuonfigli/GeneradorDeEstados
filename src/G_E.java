@@ -38,10 +38,10 @@ public void mainDialog()
 	gd.addChoice("Triples: ", ssd3, ssd3[0]);
 	gd.addChoice("General: ",  ssd2, ssd2[0]);
 	gd.addChoice("Significance level: ", sl, sl[0]);
-	gd.addNumericField("Width: ", 6, 1);
-	gd.addNumericField("Height: ", 6, 1);
-	gd.addNumericField("Maximum: ", 30, 1);
-	gd.addNumericField("Iteration (x1000): ", 1, 4);
+	gd.addNumericField("Width: ", 10, 1);
+	gd.addNumericField("Height: ", 10, 1);
+	gd.addNumericField("Maximum: ", 60, 1);
+	gd.addNumericField("Iteration (x1000): ", 100, 4);
 	gd.addNumericField("Seed: ", 1, 9);
 	gd.showDialog();
 	if(gd.wasCanceled()) 
@@ -114,6 +114,14 @@ public double aHG(int d, int n, int N, int x)  //funcion hipergeometrica acumula
 		res=res+HG(d, n, N, i);
 	return res; 	
 	}
+
+public double EM(int d, int n, int N)  //Esperanza matematica
+{
+double res=0;
+for(int i=1; i<n+1; i++)
+	res=res+i*HG(d, n, N, i);
+return res; 	
+}
 
 public int DOBLE(boolean[] c1, boolean[] c2)
 	{
@@ -323,8 +331,6 @@ public void run(String arg0)
 	System.out.println("HG: "+HG(ng, nr, w*h, rg));
 	System.out.println("FAC: "+FAC(29));
 	System.out.println("BinCoef: "+BinCoef(nr, rg));*/
-	
-	
 	do 
 		{	
 		cont=0;
@@ -364,9 +370,8 @@ public void run(String arg0)
 		eSS[4]=aHG(w*h-rb, ng, w*h, ng-rgb);
 		eSS[5]=aHG(w*h-rg, nb, w*h, nb-rgb);
 	
-		dd=(int)Math.floor(SS[0]*rg);
-		if(dd<rgb) dd=rgb;
-		
+		dd=(int)Math.round(nr*ng/(w*h));
+				
 		SS[6]=aHG(dd, nb, w*h, rgb);
 		eSS[6]=aHG(w*h-dd, nb, w*h, nb-rgb);
 	
@@ -412,6 +417,9 @@ public void run(String arg0)
 		System.out.println("c: "+SS[i]); }*/		
 	}
 
+}
+
+/*
 public static void main(String[] args) 
 	{
 	// set the plugins.dir property to make the plugin appear in the Plugins menu
